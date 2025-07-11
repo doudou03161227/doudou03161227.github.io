@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>聖誕節活動報名</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 360px;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 32px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 2px solid #a084e8;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input[type="email"] {
+      border-color: #000;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      font-size: 16px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .cancel {
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>聖誕節活動</h1>
+    <form id="signup-form">
+      <input type="text" name="name" placeholder="姓名" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <button type="submit" class="btn">報名</button>
+      <button type="button" class="btn cancel" onclick="handleCancel()">取消報名</button>
+    </form>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxB5H0TuoPa-Pv1HJp_veIjig0oN-OoPeGkn6QBL0y3fF952vKT2ECNNGC9wkjr7Pw/exec";
+
+    const form = document.getElementById("signup-form");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const name = formData.get("name");
+const email = formData.get("email");
+      for (let [key, value] of formData.entries()) {
+  console.log(`${key}: ${value}`);
+}
+fetch(scriptURL, {
+  method: "POST",
+  // headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: new URLSearchParams({
+    action: "register",
+    name: name,
+    email: email
+  })
+})
+  .then((res) => res.text())
+  .then((text) => {
+    console.log("後端回傳：", text); // ← 這邊就能看到 log 結果
+  });
+// console.log("Name:", name, "Email:", email);
+      // fetch(scriptURL, { method: "POST", body: formData })
+    //     .then((response) => {
+    //       alert("報名成功！");
+    //       form.reset();
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error!", error.message);
+    //       alert("報名失敗，請稍後再試！");
+    //     });
+    });
+
+    function handleCancel() {
+      const email = document.querySelector('input[name="email"]').value;
+      const name = document.querySelector('input[name="name"]').value;
+
+      if (!email || !name) {
+        alert("請輸入姓名與 Email 才能取消報名");
+        return;
+      }
+
+      const cancelData = new FormData();
+      cancelData.append("name", name);
+      cancelData.append("email", email);
+      cancelData.append("action", "cancel");
+
+      fetch(scriptURL, { method: "POST", body: cancelData })
+        .then(() => {
+          alert("已取消報名");
+          form.reset();
+        })
+        .catch((error) => {
+          console.error("取消失敗", error.message);
+          alert("取消失敗，請稍後再試！");
+        });
+    }
+  </script>
+</body>
+</html>
