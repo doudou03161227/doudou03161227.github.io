@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025聖誕節報名表單</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      height: 100vh;
+    }
+
+    .form-container {
+      width: 320px;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-top: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .primary-btn {
+      background-color: #f2b233;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .cancel-btn {
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    .radio-group {
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .radio-group label {
+      margin-right: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .success-msg {
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <!-- 畫面一 -->
+  <div class="form-container" id="step1">
+    <h1>2025聖誕節報名表單</h1>
+    <label>＊姓名 <input type="text" id="name" placeholder="僅限填寫一人，請勿輸入多位姓名" required /></label>
+    <button class="primary-btn" onclick="goToStep2()">報名</button>
+    <button class="cancel-btn" onclick="cancelRegistration()">取消報名</button>
+  </div>
+
+  <!-- 畫面二 -->
+  <div class="form-container hidden" id="step2">
+    <h1>2025聖誕節報名表單</h1>
+    <div class="radio-group">
+      <span>＊性別：</span>
+      <label><input type="radio" name="gender" value="女" required> 生理女</label>
+      <label><input type="radio" name="gender" value="男"> 生理男</label>
+    </div>
+
+    <label>＊Email <input type="email" id="email" placeholder="請輸入" required /></label>
+    <label>＊身分別 <input type="text" id="identity" placeholder="例：工程師／清大經濟大一生" required /></label>
+    <label>邀請人 <input type="text" id="inviter" placeholder="例：李大美（母女）、陳小明（朋友）" /></label>
+    <label>備註 <input type="text" id="note" placeholder="其他想說的話" /></label>
+    <button class="primary-btn" onclick="submitForm()">提交</button>
+    <div class="success-msg" id="responseMsg"></div>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyJ2dY2HuAgJX1Ig6NA6OZWHZcVaiBNB2Y-K5sWWUAGq2s-n5vpirt5rFngeKQ0faXtcA/exec";
+
+    function goToStep2() {
+      const name = document.getElementById("name").value.trim();
+      if (!name) {
+        alert("請輸入姓名");
+        return;
+      }
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
+    }
+
+    function submitForm() {
+      const name = document.getElementById("name").value.trim();
+      const gender = document.querySelector('input[name="gender"]:checked')?.value;
+      const email = document.getElementById("email").value.trim();
+      const identity = document.getElementById("identity").value.trim();
+      const inviter = document.getElementById("inviter").value.trim();
+      const note = document.getElementById("note").value.trim();
+
+      if (!name || !gender || !email || !identity) {
+        alert("請填寫所有必填欄位");
+        return;
+      }
+
+      const formData = new URLSearchParams({
+        action: "register",
+        name,
+        gender,
+        email,
+        identity,
+        inviter,
+        note
+      });
+
+      fetch(scriptURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString()
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("responseMsg").innerText = "報名成功，感謝您！";
+        console.log("成功：", data);
+      })
+      .catch(error => {
+        document.getElementById("responseMsg").innerText = "送出失敗，請稍後再試";
+        console.error("錯誤：", error);
+      });
+    }
+
+function cancelRegistration() {
+  const name = document.getElementById("name").value.trim();
+
+  if (!name) {
+    alert("請輸入姓名才能取消報名");
+    return;
+  }
+
+  const formData = new URLSearchParams({
+    action: "cancel",
+    name
+  });
+
+  fetch(scriptURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: formData.toString()
+  })
+  .then(response => response.text())
+  .then(text => {
+    alert(text);
+  })
+  .catch(error => {
+    alert("取消報名失敗，請稍後再試");
+    console.error("錯誤：", error);
+  });
+}
+
+  </script>
+</body>
+</html>
