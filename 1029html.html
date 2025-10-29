@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025聖誕節報名表單</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      min-height: 100vh;
+      /* 移除背景圖片，因為DM將作為<img>呈現 */
+      background-color: #f0f0f0; 
+      color: #333;
+    }
+
+    .form-container {
+      width: 340px;
+      padding: 40px 25px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      background-color: #fff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* DM 圖片樣式 */
+    .dm-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .preface-text {
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      color: #555;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px dashed #ccc;
+    }
+    .preface-text strong {
+      color: #e67e22;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+      background-color: #f9f9f9;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus {
+      border-color: #8c7ae6;
+      outline: none;
+      box-shadow: 0 0 5px rgba(140, 122, 230, 0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
+
+    .primary-btn {
+      background-color: #8c7ae6; /* 紫色調 */
+      color: #fff;
+    }
+    .primary-btn:hover {
+      background-color: #7262c0;
+    }
+
+    .secondary-btn {
+      background-color: #fbd46d; /* 黃色調 */
+      color: #333;
+    }
+    .secondary-btn:hover {
+      background-color: #f9c240;
+    }
+
+    .cancel-btn {
+      background-color: #b2bec3; /* 淺灰色 */
+      color: #333;
+    }
+    .cancel-btn:hover {
+      background-color: #95a5a6;
+    }
+
+    .radio-group, .checkbox-group {
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    /* 調整單選/多選選項的間距 */
+    .radio-group label, .checkbox-group label {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 5px;
+      font-weight: normal;
+    }
+    .radio-group input[type="radio"], .checkbox-group input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .success-msg {
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+    }
+    .error-msg {
+      text-align: center;
+      margin-top: 20px;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  
+<div class="form-container" id="step1">
+    <h1>2025聖誕節報名表單</h1>
+    <img src="DM.jpg" alt="活動DM" class="dm-image" />
+    
+    <div class="preface-text">
+      <strong>活動資訊：</strong><br>
+      時間：12/20（六）14:30~16:00<br>
+      地點：新竹市聖經書院<br>
+      停車資訊：本院備有少量停車位，建議搭乘大眾運輸或共乘前往。<br>
+      注意事項：提供精緻餐盒（6歲（含）以下孩童不提供）。<br>
+      若有6歲以下孩童同行，可至家長連線區觀看表演。
+    </div>
+    <label>＊姓名 <input type="text" id="name" placeholder="僅限填寫一人，請勿輸入多位姓名" required /></label>
+    
+    <button class="primary-btn" onclick="goToStep2()">報名</button>
+    <button class="cancel-btn" onclick="cancelRegistration()">取消報名</button>
+</div>
+
+  
+<div class="form-container hidden" id="step2">
+    <h1>2025聖誕節報名表單</h1>
+
+    <div class="radio-group">
+      <span>＊性別：</span>
+      <label><input type="radio" name="gender" value="生理女" required> 生理女</label>
+      <label><input type="radio" name="gender" value="生理男"> 生理男</label>
+    </div>
+
+    <div class="radio-group">
+      <span>＊年齡區間：</span><br>
+      <label><input type="radio" name="ageGroup" value="0-6"> 0~6</label>
+      <label><input type="radio" name="ageGroup" value="7-20"> 7~20</label>
+      <label><input type="radio" name="ageGroup" value="21-30"> 21~30</label>
+      <label><input type="radio" name="ageGroup" value="31-40"> 31~40</label>
+      <label><input type="radio" name="ageGroup" value="41-50"> 41~50</label>
+      <label><input type="radio" name="ageGroup" value="51-60"> 51~60</label>
+      <label><input type="radio" name="ageGroup" value="60以上"> 60以上</label>
+    </div>
+    
+    <div class="radio-group">
+      <span>＊身分別：</span>
+      <label><input type="radio" name="identityType" value="教友" required onchange="toggleIdentityFields()"> 教友</label>
+      <label><input type="radio" name="identityType" value="新朋友" onchange="toggleIdentityFields()"> 新朋友</label>
+    </div>
+
+    <div id="churchMemberFields" class="hidden radio-group">
+      <span>＊所屬部門：</span><br>
+      <label><input type="radio" name="department" value="聖職者"> 聖職者</label>
+      <label><input type="radio" name="department" value="長年部"> 長年部</label>
+      <label><input type="radio" name="department" value="家庭局"> 家庭局</label>
+      <label><input type="radio" name="department" value="青年部"> 青年部</label>
+      <label><input type="radio" name="department" value="大學部"> 大學部</label>
+      <label><input type="radio" name="department" value="國高中部"> 國高中部</label>
+      <label><input type="radio" name="department" value="國小部"> 國小部</label>
+      <label><input type="radio" name="department" value="銀河水"> 銀河水</label>
+    </div>
+
+    <div id="newFriendFields" class="hidden">
+      <div class="radio-group">
+        <span>＊身分：</span>
+        <label><input type="radio" name="newFriendIdentity" value="上班族" onchange="toggleStudentFields()"> 上班族</label>
+        <label><input type="radio" name="newFriendIdentity" value="在校學生" onchange="toggleStudentFields()"> 在校學生</label>
+        <label><input type="radio" name="newFriendIdentity" value="已退休" onchange="toggleStudentFields()"> 已退休</label>
+      </div>
+      <div id="studentFields" class="hidden">
+        <label>＊學校科系年級 <input type="text" id="schoolInfo" placeholder="例：清華大學經濟學系一年級" /></label>
+      </div>
+      <label>邀請人 <input type="text" id="inviter" placeholder="例：李大美（母女）、陳小明（朋友）" /></label>
+    </div>
+    
+    <div class="radio-group">
+      <span>＊主要參與區：</span>
+      <label><input type="radio" name="participationArea" value="主場" required> 主場</label>
+      <label><input type="radio" name="participationArea" value="家長連線區"> 家長連線區</label>
+    </div>
+
+    <label>＊Email <input type="email" id="email" placeholder="請輸入" required /></label>
+    
+    <label>備註 <input type="text" id="note" placeholder="其他想說的話" /></label>
+
+    <button class="primary-btn" onclick="submitForm()">提交</button>
+    <button class="secondary-btn" onclick="goToStep1()">上一步</button>
+    <div class="success-msg" id="responseMsg"></div>
+    <div class="error-msg" id="errorMsg"></div>
+</div>
+
+<script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwgFCEODYfvyFRTwNo5ugvdn1eCgI3UF20HcK0h1RDu1GhJi_HCB1XEwogIgBpUlekvbg/exec"; // 請確認此 URL 已替換為您最新的 Apps Script 部署 URL
+
+    function goToStep2() {
+      const name = document.getElementById("name").value.trim();
+      
+      if (!name) {
+        alert("請輸入姓名");
+        return;
+      }
+      
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
+    }
+
+    function goToStep1() {
+        document.getElementById("step2").classList.add("hidden");
+        document.getElementById("step1").classList.remove("hidden");
+    }
+
+    function toggleIdentityFields() {
+      const identityType = document.querySelector('input[name="identityType"]:checked')?.value;
+      const churchMemberFields = document.getElementById("churchMemberFields");
+      const newFriendFields = document.getElementById("newFriendFields");
+      const schoolInfoInput = document.getElementById("schoolInfo");
+      const inviterInput = document.getElementById("inviter");
+      
+      // 教友所屬部門的單選按鈕
+      const departmentRadios = document.querySelectorAll('#churchMemberFields input[name="department"]');
+
+
+      // 清空之前選取的內容，避免資料殘留
+      departmentRadios.forEach(rb => rb.checked = false); // 🚨 調整：清空單選部門
+      const newFriendIdentities = document.querySelectorAll('#newFriendFields input[name="newFriendIdentity"]');
+      newFriendIdentities.forEach(rb => rb.checked = false);
+      schoolInfoInput.value = '';
+      inviterInput.value = '';
+      document.getElementById("studentFields").classList.add("hidden"); 
+
+      if (identityType === "教友") {
+        churchMemberFields.classList.remove("hidden");
+        newFriendFields.classList.add("hidden");
+        schoolInfoInput.removeAttribute('required');
+      } else if (identityType === "新朋友") {
+        churchMemberFields.classList.add("hidden");
+        newFriendFields.classList.remove("hidden");
+      } else {
+        churchMemberFields.classList.add("hidden");
+        newFriendFields.classList.add("hidden");
+        schoolInfoInput.removeAttribute('required');
+      }
+    }
+
+    function toggleStudentFields() {
+      const newFriendIdentity = document.querySelector('input[name="newFriendIdentity"]:checked')?.value;
+      const studentFields = document.getElementById("studentFields");
+      const schoolInfoInput = document.getElementById("schoolInfo");
+
+      if (newFriendIdentity === "在校學生") {
+        studentFields.classList.remove("hidden");
+        schoolInfoInput.setAttribute('required', 'required');
+      } else {
+        studentFields.classList.add("hidden");
+        schoolInfoInput.removeAttribute('required');
+      }
+    }
+
+    function submitForm() {
+      document.getElementById("responseMsg").innerText = ''; 
+      document.getElementById("errorMsg").innerText = '';
+
+      const name = document.getElementById("name").value.trim();
+      const participationArea = document.querySelector('input[name="participationArea"]:checked')?.value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value;
+      const email = document.getElementById("email").value.trim();
+      const ageGroup = document.querySelector('input[name="ageGroup"]:checked')?.value;
+      const identityType = document.querySelector('input[name="identityType"]:checked')?.value;
+      const note = document.getElementById("note").value.trim();
+
+      // 基本驗證
+      if (!name || !participationArea || !gender || !email || !ageGroup || !identityType) {
+        document.getElementById("errorMsg").innerText = "請填寫所有必填欄位";
+        return;
+      }
+
+      let department = '';
+      if (identityType === "教友") {
+        // 🚨 調整：部門欄位為單選
+        department = document.querySelector('input[name="department"]:checked')?.value;
+        if (!department) {
+            document.getElementById("errorMsg").innerText = "請選擇所屬部門";
+            return;
+        }
+      }
+
+      let newFriendIdentity = '';
+      let schoolInfo = '';
+      let inviter = '';
+
+      if (identityType === "新朋友") {
+        newFriendIdentity = document.querySelector('input[name="newFriendIdentity"]:checked')?.value;
+        if (!newFriendIdentity) {
+            document.getElementById("errorMsg").innerText = "請選擇新朋友身分";
+            return;
+        }
+        if (newFriendIdentity === "在校學生") {
+          schoolInfo = document.getElementById("schoolInfo").value.trim();
+          if (!schoolInfo) {
+              document.getElementById("errorMsg").innerText = "請填寫學校科系年級";
+              return;
+          }
+        }
+        inviter = document.getElementById("inviter").value.trim();
+      }
+
+      const formData = new URLSearchParams({
+        action: "register",
+        name,
+        participationArea,
+        gender,
+        email,
+        ageGroup,
+        identityType,
+        department,        // 教友部門 (單一值)
+        newFriendIdentity, // 新朋友身分
+        schoolInfo,        // 學生學校資訊
+        inviter,           // 邀請人
+        note
+      });
+
+      fetch(scriptURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString()
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "success") {
+            document.getElementById("responseMsg").innerText = "報名成功，感謝您！已寄送確認信至您的信箱。";
+            console.log("成功：", data);
+        } else {
+            document.getElementById("errorMsg").innerText = data.message || "送出失敗，請稍後再試";
+            console.error("錯誤：", data);
+        }
+      })
+      .catch(error => {
+        document.getElementById("errorMsg").innerText = "網路錯誤，送出失敗，請稍後再試";
+        console.error("錯誤：", error);
+      });
+    }
+
+    function cancelRegistration() {
+        document.getElementById("responseMsg").innerText = '';
+        document.getElementById("errorMsg").innerText = '';
+
+        const name = document.getElementById("name").value.trim();
+        const email = prompt("請輸入您的Email以確認取消報名："); 
+
+        if (!name || !email) {
+            alert("請輸入姓名及Email才能取消報名");
+            return;
+        }
+
+        const formData = new URLSearchParams({
+            action: "cancel",
+            name,
+            email 
+        });
+
+        fetch(scriptURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: formData.toString()
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            if (data.status === "success") {
+                alert(data.message || "取消報名成功！");
+            } else {
+                alert(data.message || "取消報名失敗，請檢查姓名與Email是否正確。");
+            }
+        })
+        .catch(error => {
+            alert("取消報名失敗，請稍後再試");
+            console.error("錯誤：", error);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleIdentityFields();
+        toggleStudentFields();
+    });
+
+</script>
+</body>
+</html>
