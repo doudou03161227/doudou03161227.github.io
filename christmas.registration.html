@@ -42,6 +42,13 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
+    /* 🚨 新增：必填星號樣式 */
+    .required-star {
+        color: #e74c3c; /* 鮮紅色 */
+        font-weight: bold;
+        margin-right: 2px;
+    }
+
     h1 {
       text-align: center;
       margin-bottom: 25px;
@@ -184,7 +191,8 @@
       1.提供精緻餐盒（6歲（含）以下孩童不提供）。<br>
       2.若有6歲以下孩童同行，可至家長連線區觀看表演。<br>
     </div>
-    <label>＊姓名 <input type="text" id="name" placeholder="僅限填寫一人，請勿輸入多位姓名" required /></label>
+    <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+    <label><span class="required-star">＊</span>姓名 <input type="text" id="name" placeholder="僅限填寫一人，請勿輸入多位姓名" required /></label>
     
     <button class="primary-btn" onclick="goToStep2()">報名</button>
     <button class="cancel-btn" onclick="cancelRegistration()">取消報名</button>
@@ -195,13 +203,15 @@
     <h1>2025聖誕節報名表單</h1>
 
     <div class="radio-group">
-      <span>＊性別：</span>
+      <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+      <span><span class="required-star">＊</span>性別：</span>
       <label><input type="radio" name="gender" value="生理女" required> 生理女</label>
       <label><input type="radio" name="gender" value="生理男"> 生理男</label>
     </div>
 
     <div class="radio-group">
-      <span>＊年齡區間：</span><br>
+      <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+      <span><span class="required-star">＊</span>年齡區間：</span><br>
       <label><input type="radio" name="ageGroup" value="0-6"> 0~6</label>
       <label><input type="radio" name="ageGroup" value="7-20"> 7~20</label>
       <label><input type="radio" name="ageGroup" value="21-30"> 21~30</label>
@@ -212,13 +222,15 @@
     </div>
     
     <div class="radio-group">
-      <span>＊身分別：</span>
+      <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+      <span><span class="required-star">＊</span>身分別：</span>
       <label><input type="radio" name="identityType" value="教友" required onchange="toggleIdentityFields()"> 教友</label>
       <label><input type="radio" name="identityType" value="新朋友" onchange="toggleIdentityFields()"> 新朋友</label>
     </div>
 
     <div id="churchMemberFields" class="hidden radio-group">
-      <span>＊所屬部門：</span><br>
+      <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+      <span><span class="required-star">＊</span>所屬部門：</span><br>
       <label><input type="radio" name="department" value="聖職者"> 聖職者</label>
       <label><input type="radio" name="department" value="長年部"> 長年部</label>
       <label><input type="radio" name="department" value="家庭局"> 家庭局</label>
@@ -231,25 +243,29 @@
 
     <div id="newFriendFields" class="hidden">
       <div class="radio-group">
-        <span>＊身分：</span>
+        <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+        <span><span class="required-star">＊</span>身分：</span>
         <label><input type="radio" name="newFriendIdentity" value="學齡前兒童" onchange="toggleStudentFields()"> 學齡前兒童</label>
         <label><input type="radio" name="newFriendIdentity" value="在校學生" onchange="toggleStudentFields()"> 在校學生</label>
         <label><input type="radio" name="newFriendIdentity" value="上班族" onchange="toggleStudentFields()"> 上班族</label>
         <label><input type="radio" name="newFriendIdentity" value="已退休" onchange="toggleStudentFields()"> 已退休</label>
       </div>
       <div id="studentFields" class="hidden">
-        <label>＊學校科系年級 <input type="text" id="schoolInfo" placeholder="例：清華大學經濟學系一年級" /></label>
+        <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+        <label><span class="required-star">＊</span>學校科系年級 <input type="text" id="schoolInfo" placeholder="例：清華大學經濟學系一年級" /></label>
       </div>
       <label>邀請人 <input type="text" id="inviter" placeholder="例：李大美（母女）、陳小明（朋友）" /></label>
     </div>
     
     <div class="radio-group">
-      <span>＊主要參與區：</span>
+      <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+      <span><span class="required-star">＊</span>主要參與區：</span>
       <label><input type="radio" name="participationArea" value="主場" required> 主場</label>
       <label><input type="radio" name="participationArea" value="家長連線區"> 家長連線區</label>
     </div>
 
-    <label>＊Email <input type="email" id="email" placeholder="請輸入" required /></label>
+    <!-- 🚨 更改：將星號包在 span.required-star 內 -->
+    <label><span class="required-star">＊</span>Email <input type="email" id="email" placeholder="請輸入" required /></label>
     
     <label>備註 <input type="text" id="note" placeholder="其他想說的話" /></label>
 
@@ -266,6 +282,7 @@
       const name = document.getElementById("name").value.trim();
       
       if (!name) {
+        // 🚨 統一使用自定義的非 alert 提示方式 (這裡沿用您原來的 alert，但建議改用自定義 UI)
         alert("請輸入姓名");
         return;
       }
@@ -398,14 +415,17 @@
       .then(data => {
         if (data.status === "success") {
             document.getElementById("responseMsg").innerText = "報名成功，感謝您！已寄送確認信至您的信箱。";
+            document.getElementById("errorMsg").innerText = ''; // 清除錯誤訊息
             console.log("成功：", data);
         } else {
             document.getElementById("errorMsg").innerText = data.message || "送出失敗，請稍後再試";
+            document.getElementById("responseMsg").innerText = ''; // 清除成功訊息
             console.error("錯誤：", data);
         }
       })
       .catch(error => {
         document.getElementById("errorMsg").innerText = "網路錯誤，送出失敗，請稍後再試";
+        document.getElementById("responseMsg").innerText = ''; // 清除成功訊息
         console.error("錯誤：", error);
       });
     }
@@ -415,6 +435,7 @@
         document.getElementById("errorMsg").innerText = '';
 
         const name = document.getElementById("name").value.trim();
+        // 🚨 統一使用自定義的非 alert 提示方式 (這裡沿用您原來的 prompt/alert，但建議改用自定義 UI)
         const email = prompt("請輸入您的Email以確認取消報名："); 
 
         if (!name || !email) {
@@ -453,5 +474,3 @@
     });
 
 </script>
-</body>
-</html>
